@@ -1,4 +1,4 @@
-package Task1_Quadratic_Equation_with_OOP_basics;
+package Task2_Quadratic_Equation_with_OOP_basics;
 
 public class Arguments {
 
