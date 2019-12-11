@@ -1,7 +1,5 @@
 package Task3_CargoTransportation;
 
-import org.w3c.dom.ls.LSOutput;
-
 public class TransportationStarter {
 
     public static void main(String[] args) {
