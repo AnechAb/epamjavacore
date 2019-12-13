@@ -1,11 +1,12 @@
-package Task4_TransportationCompany.transportation;
+package Task4_TransportationCompany.transportation.domain;
 
-import Task4_TransportationCompany.cargo.Cargo;
-import Task4_TransportationCompany.carrier.Carrier;
+import Task4_TransportationCompany.cargo.domain.Cargo;
+import Task4_TransportationCompany.carrier.domain.Carrier;
+import Task4_TransportationCompany.common.domain.Entity;
 
 import java.util.Date;
 
-public class Transportation {
+public class Transportation implements Entity {
     private Long id;
     private Cargo cargo;
     private Carrier carrier;
@@ -13,11 +14,6 @@ public class Transportation {
     private String billTo;
 
     private Date date;
-
-    public Transportation() {
-        id=0L;
-        id++;
-    }
 
     public Date getDate() {
         return date;
@@ -65,5 +61,17 @@ public class Transportation {
 
     public void setCarrier(Carrier carrier) {
         this.carrier = carrier;
+    }
+
+    @Override
+    public String toString() {
+        return "Transportation{" +
+                "id=" + id +
+                ", cargo=" + cargo +
+                ", carrier=" + carrier +
+                ", description='" + description + '\'' +
+                ", billTo='" + billTo + '\'' +
+                ", date=" + date +
+                '}';
     }
 }

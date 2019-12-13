@@ -1,4 +1,4 @@
-package Task4_TransportationCompany.carrier;
+package Task4_TransportationCompany.carrier.domain;
 
 public enum CarrierType {
     SHIP,
