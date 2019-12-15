@@ -1,24 +1,14 @@
 package Task4_TransportationCompany.carrier.domain;
 
-import Task4_TransportationCompany.common.domain.Entity;
+import Task4_TransportationCompany.common.domain.BaseEntity;
 import Task4_TransportationCompany.transportation.domain.Transportation;
 
-import java.util.Arrays;
+public class Carrier extends BaseEntity {
 
-public class Carrier implements Entity {
-    private Long id;
     private String name;
     private String address;
     private CarrierType carrierType;
     private Transportation[] transportations;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -55,11 +45,10 @@ public class Carrier implements Entity {
     @Override
     public String toString() {
         return "Carrier{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id='" + id + '\'' +
+                "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", carrierType=" + carrierType +
-                ", transportations=" + Arrays.toString(transportations) +
                 '}';
     }
 }

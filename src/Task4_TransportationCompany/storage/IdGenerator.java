@@ -1,6 +1,6 @@
-package Task4_TransportationCompany;
+package Task4_TransportationCompany.storage;
 
-public class IdGenerator {
+public final class IdGenerator {
 
     private IdGenerator() {
     }

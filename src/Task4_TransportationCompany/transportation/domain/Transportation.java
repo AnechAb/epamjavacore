@@ -2,33 +2,24 @@ package Task4_TransportationCompany.transportation.domain;
 
 import Task4_TransportationCompany.cargo.domain.Cargo;
 import Task4_TransportationCompany.carrier.domain.Carrier;
-import Task4_TransportationCompany.common.domain.Entity;
+import Task4_TransportationCompany.common.domain.BaseEntity;
 
 import java.util.Date;
 
-public class Transportation implements Entity {
-    private Long id;
+public class Transportation extends BaseEntity {
+
     private Cargo cargo;
     private Carrier carrier;
     private String description;
     private String billTo;
+    private Date transportationBeginDate;
 
-    private Date date;
-
-    public Date getDate() {
-        return date;
+    public Date getTransportationBeginDate() {
+        return transportationBeginDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setTransportationBeginDate(Date transportationBeginDate) {
+        this.transportationBeginDate = transportationBeginDate;
     }
 
     public String getDescription() {
@@ -66,12 +57,9 @@ public class Transportation implements Entity {
     @Override
     public String toString() {
         return "Transportation{" +
-                "id=" + id +
-                ", cargo=" + cargo +
-                ", carrier=" + carrier +
-                ", description='" + description + '\'' +
-                ", billTo='" + billTo + '\'' +
-                ", date=" + date +
+                "description='" + description + '\'' +
+                ", Carrier='" + carrier.getName() + '\'' +
+                ", Cargo=" + cargo.getName() +
                 '}';
     }
 }
