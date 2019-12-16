@@ -8,6 +8,9 @@ import Task4_TransportationCompany.transportation.domain.Transportation;
 
 import java.util.Date;
 
+import static Task4_TransportationCompany.cargo.repo.GettersCargo.getCargoById;
+import static Task4_TransportationCompany.carrier.repo.GettersCarrier.getCarrierById;
+
 public class InMemoryStorageInitor implements StorageInitor {
 
     private static final int TOTAL_ENTITIES_IN_GROUP = 6;
@@ -28,8 +31,8 @@ public class InMemoryStorageInitor implements StorageInitor {
 
     private Transportation createTransportation(long cargoId, long carrierId) {
         Transportation transportation = new Transportation();
-        transportation.setCargo(Storage.getCargoById(cargoId));
-        transportation.setCarrier(Storage.getCarrierById(carrierId));
+        transportation.setCargo(getCargoById(cargoId));
+        transportation.setCarrier(getCarrierById(carrierId));
         transportation.setDescription("Transportation");
 
         return transportation;

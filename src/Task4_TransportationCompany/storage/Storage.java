@@ -5,8 +5,6 @@ import Task4_TransportationCompany.carrier.domain.Carrier;
 import Task4_TransportationCompany.common.utils.ArrayUtils;
 import Task4_TransportationCompany.transportation.domain.Transportation;
 
-import java.util.Objects;
-
 public class Storage {
 
     private static final int ARRAY_CAPACITY = 10;
@@ -32,32 +30,10 @@ public class Storage {
         }
     }
 
-    public static Cargo getCargoById(long id) {
-        for (Cargo cargo : cargos) {
-            if (cargo != null && Long.valueOf(id).equals(cargo.getId())) {
-                return cargo;
-            }
-        }
-
-        return null;
-    }
-
-    public static Cargo[] getCargosByName(String name) {
-        Cargo[] result = new Cargo[cargos.length];
-
-        int curIndex = 0;
-        for (Cargo cargo : cargos) {
-            if (cargo != null && Objects.equals(cargo.getName(), name)) {
-                result[curIndex++] = cargo;
-            }
-        }
-
-        return result;
-    }
-
     public static void printAllCargos() {
         ArrayUtils.printArray(cargos);
     }
+
 
     public static void addCarrier(Carrier carrier) {
         carrier.setId(IdGenerator.generateId());
@@ -69,29 +45,6 @@ public class Storage {
             ArrayUtils.copyArray(carriers, newCarriers);
             carriers = newCarriers;
         }
-    }
-
-    public static Carrier getCarrierById(long id) {
-        for (Carrier carrier : carriers) {
-            if (carrier != null && Long.valueOf(id).equals(carrier.getId())) {
-                return carrier;
-            }
-        }
-
-        return null;
-    }
-
-    public static Carrier[] getCarriersByName(String name) {
-        Carrier[] result = new Carrier[carriers.length];
-
-        int curIndex = 0;
-        for (Carrier carrier : carriers) {
-            if (carrier != null && Objects.equals(carrier.getName(), name)) {
-                result[curIndex++] = carrier;
-            }
-        }
-
-        return result;
     }
 
     public static void printAllCarriers() {
@@ -108,16 +61,6 @@ public class Storage {
             ArrayUtils.copyArray(transportations, newTransportations);
             transportations = newTransportations;
         }
-    }
-
-    public static Transportation getTransportationById(long id) {
-        for (Transportation transportation : transportations) {
-            if (transportation != null && Long.valueOf(id).equals(transportation.getId())) {
-                return transportation;
-            }
-        }
-
-        return null;
     }
 
     public static void printAllTransportations() {
