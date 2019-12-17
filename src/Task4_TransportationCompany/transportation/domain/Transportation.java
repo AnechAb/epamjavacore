@@ -2,7 +2,7 @@ package Task4_TransportationCompany.transportation.domain;
 
 import Task4_TransportationCompany.cargo.domain.Cargo;
 import Task4_TransportationCompany.carrier.domain.Carrier;
-import Task4_TransportationCompany.common.domain.BaseEntity;
+import Task4_TransportationCompany.common.business.domain.BaseEntity;
 
 import java.util.Date;
 

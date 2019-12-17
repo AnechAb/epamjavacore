@@ -1,4 +1,4 @@
-package Task4_TransportationCompany.common.domain;
+package Task4_TransportationCompany.common.business.domain;
 
 public abstract class BaseEntity {
     protected Long id;

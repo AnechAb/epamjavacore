@@ -1,6 +1,6 @@
 package Task4_TransportationCompany.carrier.domain;
 
-import Task4_TransportationCompany.common.domain.BaseEntity;
+import Task4_TransportationCompany.common.business.domain.BaseEntity;
 import Task4_TransportationCompany.transportation.domain.Transportation;
 
 public class Carrier extends BaseEntity {
