@@ -13,7 +13,7 @@ import java.util.Objects;
 
 
 public class CargoDefaultRepoImpl implements CargoRepo {
-
+    private static int cargoIndex = 0;
     private static final Cargo[] EMPTY_CARGO_ARRAY = new Cargo[0];
 
     @Override

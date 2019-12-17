@@ -6,10 +6,8 @@ import Task4_TransportationCompany.storage.Storage;
 import Task4_TransportationCompany.transportation.domain.Transportation;
 import Task4_TransportationCompany.transportation.repo.TransportationRepo;
 
-import static Task4_TransportationCompany.storage.Storage.transportationIndex;
-
 public class TransportationDefaultRepoImpl implements TransportationRepo {
-
+    private static int transportationIndex = 0;
     @Override
     public void add(Transportation transportation) {
         if (transportationIndex == Storage.transportations.length) {

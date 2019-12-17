@@ -7,4 +7,6 @@ public interface CargoService extends CommonService {
     void add(Cargo cargo);
 
     Cargo getById(Long id);
+
+    void printAllCargos();
 }
