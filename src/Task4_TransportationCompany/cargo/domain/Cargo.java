@@ -4,6 +4,7 @@ import Task4_TransportationCompany.common.business.domain.BaseEntity;
 import Task4_TransportationCompany.transportation.domain.Transportation;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public abstract class Cargo extends BaseEntity {
 
@@ -51,5 +52,18 @@ public abstract class Cargo extends BaseEntity {
                 ", cargoType=" + cargoType +
                 ", transportations=" + Arrays.toString(transportations) +
                 '}';
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Cargo cargo = (Cargo) o;
+        return Objects.equals(id, cargo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

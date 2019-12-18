@@ -97,7 +97,7 @@ public class CargoDefaultRepoImpl implements CargoRepo {
 
     @Override
     public boolean deleteById(long id) {
-        Integer indexToDelete = findEntityIndexInArrayStorageById(carriers, id);
+        Integer indexToDelete = findEntityIndexInArrayStorageById(cargos, id);
 
         if (indexToDelete == null) {
             return false;
