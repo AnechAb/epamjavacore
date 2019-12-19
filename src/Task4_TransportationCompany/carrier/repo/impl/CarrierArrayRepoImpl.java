@@ -5,12 +5,13 @@ import Task4_TransportationCompany.carrier.repo.CarrierRepo;
 import Task4_TransportationCompany.common.solutions.utils.ArrayUtils;
 import Task4_TransportationCompany.storage.IdGenerator;
 
+import java.util.List;
 import java.util.Objects;
 
 import static Task4_TransportationCompany.common.business.repo.CommonRepoHelper.findEntityIndexInArrayStorageById;
 import static Task4_TransportationCompany.storage.Storage.carriers;
 
-public class CarrierDefaultRepoImpl implements CarrierRepo {
+public class CarrierArrayRepoImpl implements CarrierRepo {
 
     private static final Carrier[] EMPTY_CARRIER_ARRAY = new Carrier[0];
     private static int carrierIndex = 0;
@@ -47,6 +48,11 @@ public class CarrierDefaultRepoImpl implements CarrierRepo {
         } else {
             return excludeNullableElementsFromArray(searchResultWithNullableElems);
         }
+    }
+
+    @Override
+    public List<Carrier> getAll() {
+        return null;
     }
 
     private Carrier[] getByNameIncludingNullElements(String name) {

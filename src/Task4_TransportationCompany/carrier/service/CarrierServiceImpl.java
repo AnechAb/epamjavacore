@@ -1,22 +1,56 @@
 package Task4_TransportationCompany.carrier.service;
 
-import Task4_TransportationCompany.common.solutions.utils.ArrayUtils;
+import Task4_TransportationCompany.carrier.domain.Carrier;
+import Task4_TransportationCompany.carrier.repo.CarrierRepo;
 
-import static Task4_TransportationCompany.storage.Storage.carriers;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-public class CarrierServiceImpl implements CarrierService{
+public class CarrierServiceImpl implements CarrierService {
+
+    private CarrierRepo carrierRepo;
+
+    public CarrierServiceImpl(
+            CarrierRepo carrierRepo) {
+        this.carrierRepo = carrierRepo;
+    }
+
+    @Override
+    public void add(Carrier carrier) {
+        carrierRepo.add(carrier);
+    }
+
+    @Override
+    public Carrier getById(Long id) {
+        if (id != null) {
+            return carrierRepo.getById(id);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Carrier> getByName(String name) {
+        Carrier[] found = carrierRepo.getByName(name);
+        return (found == null || found.length == 0) ? Collections.emptyList() : Arrays.asList(found);
+
+    }
+
+    @Override
+    public List<Carrier> getAll() {
+        return carrierRepo.getAll();
+    }
 
     @Override
     public boolean deleteById(Long id) {
-        return false;
+        return carrierRepo.deleteById(id);
     }
-
 
     @Override
-    public void printAllCarriers() {
-
-        ArrayUtils.printArray(carriers);
-
+    public void printAll() {
+        List<Carrier> carriers = carrierRepo.getAll();
+        for (Carrier carrier : carriers) {
+            System.out.println(carrier);
+        }
     }
-
 }

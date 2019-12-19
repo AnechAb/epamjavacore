@@ -9,10 +9,11 @@ import Task4_TransportationCompany.cargo.repo.CargoRepo;
 import Task4_TransportationCompany.common.solutions.utils.ArrayUtils;
 import Task4_TransportationCompany.storage.IdGenerator;
 
+import java.util.List;
 import java.util.Objects;
 
 
-public class CargoDefaultRepoImpl implements CargoRepo {
+public class CargoArrayRepoImpl implements CargoRepo {
     private static int cargoIndex = 0;
     private static final Cargo[] EMPTY_CARGO_ARRAY = new Cargo[0];
 
@@ -49,6 +50,11 @@ public class CargoDefaultRepoImpl implements CargoRepo {
         } else {
             return excludeNullableElementsFromArray(searchResultWithNullableElems);
         }
+    }
+
+    @Override
+    public List<Cargo> getAll() {
+        return null;
     }
 
     private Cargo[] getByNameIncludingNullElements(String name) {

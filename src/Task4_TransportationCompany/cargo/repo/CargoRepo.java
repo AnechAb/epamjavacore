@@ -3,6 +3,8 @@ package Task4_TransportationCompany.cargo.repo;
 import Task4_TransportationCompany.cargo.domain.Cargo;
 import Task4_TransportationCompany.common.business.repo.CommonRepo;
 
+import java.util.List;
+
 public interface CargoRepo extends CommonRepo {
 
     void add(Cargo cargo);
@@ -10,4 +12,6 @@ public interface CargoRepo extends CommonRepo {
     Cargo getById(long id);
 
     Cargo[] getByName(String name);
+
+    List<Cargo> getAll();
 }

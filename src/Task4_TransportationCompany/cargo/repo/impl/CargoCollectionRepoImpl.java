@@ -1,62 +1,68 @@
 package Task4_TransportationCompany.cargo.repo.impl;
 
 import Task4_TransportationCompany.cargo.domain.Cargo;
-import Task4_TransportationCompany.cargo.repo.CargoCollectionRepo;
-import Task4_TransportationCompany.common.business.domain.BaseEntity;
-import Task4_TransportationCompany.storage.CollectionStorage;
+import Task4_TransportationCompany.cargo.repo.CargoRepo;
 import Task4_TransportationCompany.storage.IdGenerator;
 
-/*import static Task4_TransportationCompany.common.business.repo.CommonRepoHelper.findEntityIndexInCollectionStorageById;*/
-import static Task4_TransportationCompany.storage.CollectionStorage.*;
+import static Task4_TransportationCompany.storage.Storage.cargoCollection;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public class CargoCollectionRepoImpl implements CargoCollectionRepo {
+public class CargoCollectionRepoImpl implements CargoRepo {
     private static int cargoIndex = 0;
 
     @Override
-    public void add(Cargo cargo) {
-        cargo.setId(IdGenerator.generateId());
-        cargos.add(cargo);
-        cargoIndex++;
+    public void add(Cargo carrier) {
+        carrier.setId(IdGenerator.generateId());
+        cargoCollection.add(carrier);
     }
 
     @Override
     public Cargo getById(long id) {
-        for (Cargo cargo : CollectionStorage.cargos) {
-            if (cargo != null && Long.valueOf(id).equals(cargo.getId())) {
-                return cargo;
+        for (Cargo carrier : cargoCollection) {
+            if (Long.valueOf(id).equals(carrier.getId())) {
+                return carrier;
             }
         }
+
         return null;
     }
 
     @Override
-    public List<Cargo> getByName(String name) {
+    public Cargo[] getByName(String name) {
         List<Cargo> result = new ArrayList<>();
-        Iterator<Cargo> iter = cargos.iterator();
 
-        while (iter.hasNext()){
-            Cargo value = iter.next();
-
-            if (value.getName().equals(name)){
-                result.add(value);
+        for (Cargo carrier : cargoCollection) {
+            if (Objects.equals(carrier.getName(), name)) {
+                result.add(carrier);
             }
         }
-        return result;
+
+        return result.toArray(new Cargo[0]);
+    }
+
+    @Override
+    public List<Cargo> getAll() {
+        return cargoCollection;
     }
 
     @Override
     public boolean deleteById(long id) {
-        for (Cargo cargo : CollectionStorage.cargos) {
-            if (cargo != null && Long.valueOf(id).equals(cargo.getId())) {
-                cargos.remove(cargo);
-                return true;
+        Iterator<Cargo> iter = cargoCollection.iterator();
+
+        boolean removed = false;
+        while (iter.hasNext()) {
+            if (Long.valueOf(id).equals(iter.next().getId())) {
+                iter.remove();
+                removed = true;
+                break;
             }
         }
-        return false;
+
+        return removed;
     }
 }
+

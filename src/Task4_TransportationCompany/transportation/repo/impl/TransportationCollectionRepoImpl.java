@@ -1,42 +1,52 @@
 package Task4_TransportationCompany.transportation.repo.impl;
 
+import Task4_TransportationCompany.storage.Storage;
 import Task4_TransportationCompany.transportation.domain.Transportation;
-import Task4_TransportationCompany.storage.CollectionStorage;
 import Task4_TransportationCompany.storage.IdGenerator;
+import Task4_TransportationCompany.transportation.repo.TransportationRepo;
 
-import Task4_TransportationCompany.transportation.repo.TransportationCollectionRepo;
+import java.util.Iterator;
+import java.util.List;
 
-import static Task4_TransportationCompany.storage.CollectionStorage.transportations;
+import static Task4_TransportationCompany.storage.Storage.transportationCollection;
+import static Task4_TransportationCompany.storage.Storage.transportations;
 
-public class TransportationCollectionRepoImpl implements TransportationCollectionRepo {
-    private static int transportationIndex = 0;
+public class TransportationCollectionRepoImpl implements TransportationRepo {
 
     @Override
     public void add(Transportation transportation) {
         transportation.setId(IdGenerator.generateId());
-        transportations.add(transportation);
-        transportationIndex++;
+        transportationCollection.add(transportation);
     }
 
     @Override
     public Transportation getById(long id) {
-        for (Transportation transportation : CollectionStorage.transportations) {
-            if (transportation != null && Long.valueOf(id).equals(transportation.getId())) {
+        for (Transportation transportation : transportationCollection) {
+            if (Long.valueOf(id).equals(transportation.getId())) {
                 return transportation;
             }
         }
+
         return null;
     }
 
+    @Override
+    public List<Transportation> getAll() {
+        return transportationCollection;
+    }
 
     @Override
     public boolean deleteById(long id) {
-        for (Transportation transportation : CollectionStorage.transportations) {
-            if (transportation != null && Long.valueOf(id).equals(transportation.getId())) {
-                transportations.remove(transportation);
-                return true;
+        boolean deleted = false;
+
+        Iterator<Transportation> iter = transportationCollection.iterator();
+        while (iter.hasNext()) {
+            if (Long.valueOf(id).equals(iter.next().getId())) {
+                iter.remove();
+                deleted = true;
+                break;
             }
         }
-        return false;
+        return deleted;
     }
 }

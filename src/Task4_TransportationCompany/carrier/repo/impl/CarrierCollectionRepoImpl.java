@@ -1,60 +1,66 @@
 package Task4_TransportationCompany.carrier.repo.impl;
 
 import Task4_TransportationCompany.carrier.domain.Carrier;
-import Task4_TransportationCompany.storage.CollectionStorage;
-import Task4_TransportationCompany.carrier.repo.CarrierCollectionRepo;
+import Task4_TransportationCompany.carrier.repo.CarrierRepo;
 import Task4_TransportationCompany.storage.IdGenerator;
 
-/*import static Task4_TransportationCompany.common.business.repo.CommonRepoHelper.findEntityIndexInCollectionStorageById;*/
-import static Task4_TransportationCompany.storage.CollectionStorage.*;
+import static Task4_TransportationCompany.storage.Storage.carrierCollection;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
-public class CarrierCollectionRepoImpl implements CarrierCollectionRepo {
-    private static int carrierIndex = 0;
+public class CarrierCollectionRepoImpl implements CarrierRepo {
 
     @Override
     public void add(Carrier carrier) {
         carrier.setId(IdGenerator.generateId());
-        carriers.add(carrier);
-        carrierIndex++;
+        carrierCollection.add(carrier);
     }
 
     @Override
     public Carrier getById(long id) {
-        for (Carrier carrier : CollectionStorage.carriers) {
-            if (carrier != null && Long.valueOf(id).equals(carrier.getId())) {
+        for (Carrier carrier : carrierCollection) {
+            if (Long.valueOf(id).equals(carrier.getId())) {
                 return carrier;
             }
         }
+
         return null;
     }
 
     @Override
-    public List<Carrier> getByName(String name) {
+    public Carrier[] getByName(String name) {
         List<Carrier> result = new ArrayList<>();
-        Iterator<Carrier> iter = carriers.iterator();
 
-        while (iter.hasNext()){
-            Carrier value = iter.next();
-
-            if (value.getName().equals(name)){
-                result.add(value);
+        for (Carrier carrier : carrierCollection) {
+            if (Objects.equals(carrier.getName(), name)) {
+                result.add(carrier);
             }
         }
-        return result;
+
+        return result.toArray(new Carrier[0]);
     }
 
     @Override
     public boolean deleteById(long id) {
-        for (Carrier carrier : CollectionStorage.carriers) {
-            if (carrier != null && Long.valueOf(id).equals(carrier.getId())) {
-                carriers.remove(carrier);
-                return true;
+        Iterator<Carrier> iter = carrierCollection.iterator();
+
+        boolean removed = false;
+        while (iter.hasNext()) {
+            if (Long.valueOf(id).equals(iter.next().getId())) {
+                iter.remove();
+                removed = true;
+                break;
             }
         }
-        return false;
+
+        return removed;
+    }
+
+    @Override
+    public List<Carrier> getAll() {
+        return carrierCollection;
     }
 }

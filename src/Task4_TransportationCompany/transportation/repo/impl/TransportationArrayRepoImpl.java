@@ -6,7 +6,9 @@ import Task4_TransportationCompany.storage.Storage;
 import Task4_TransportationCompany.transportation.domain.Transportation;
 import Task4_TransportationCompany.transportation.repo.TransportationRepo;
 
-public class TransportationDefaultRepoImpl implements TransportationRepo {
+import java.util.List;
+
+public class TransportationArrayRepoImpl implements TransportationRepo {
     private static int transportationIndex = 0;
     @Override
     public void add(Transportation transportation) {
@@ -30,6 +32,11 @@ public class TransportationDefaultRepoImpl implements TransportationRepo {
             }
         }
 
+        return null;
+    }
+
+    @Override
+    public List<Transportation> getAll() {
         return null;
     }
 
