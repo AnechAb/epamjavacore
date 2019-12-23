@@ -15,4 +15,6 @@ public interface CarrierRepo extends CommonRepo {
 
     List<Carrier> getAll();
 
+    void update(Carrier carrier);
+
 }

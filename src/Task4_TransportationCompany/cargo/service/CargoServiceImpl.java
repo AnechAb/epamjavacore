@@ -2,6 +2,7 @@ package Task4_TransportationCompany.cargo.service;
 
 import Task4_TransportationCompany.cargo.domain.Cargo;
 import Task4_TransportationCompany.cargo.repo.CargoRepo;
+import Task4_TransportationCompany.cargo.search.CargoSearchCondition;
 import Task4_TransportationCompany.common.solutions.utils.ArrayUtils;
 
 import java.util.Arrays;
@@ -37,7 +38,7 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Override
-    public List<Cargo> getByName(String name) {
+    public List<Cargo> findByName(String name) {
         Cargo[] found = cargoRepo.getByName(name);
         return (found == null || found.length == 0) ? Collections.emptyList() : Arrays.asList(found);
     }
@@ -54,5 +55,16 @@ public class CargoServiceImpl implements CargoService {
         for (Cargo cargo : allCargos) {
             System.out.println(cargo);
         }
+    }
+    @Override
+    public void update(Cargo cargo) {
+        if (cargo != null) {
+            cargoRepo.update(cargo);
+        }
+    }
+
+    @Override
+    public List<Cargo> search(CargoSearchCondition cargoSearchCondition) {
+            return cargoRepo.search(cargoSearchCondition);
     }
 }

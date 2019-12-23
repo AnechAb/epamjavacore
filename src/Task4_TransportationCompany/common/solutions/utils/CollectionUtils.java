@@ -13,5 +13,8 @@ public final class CollectionUtils {
             System.out.println(obj.toString());
         }
     }
+    public static boolean isNotEmpty(Collection<?> collection) {
+        return collection != null && !collection.isEmpty();
+    }
 
 }

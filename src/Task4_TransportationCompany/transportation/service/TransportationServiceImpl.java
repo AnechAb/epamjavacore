@@ -44,4 +44,9 @@ public class TransportationServiceImpl implements TransportationService {
     public List<Transportation> getAll() {
         return transportationRepo.getAll();
     }
+
+    @Override
+    public void update(Transportation transportation) {
+
+    }
 }

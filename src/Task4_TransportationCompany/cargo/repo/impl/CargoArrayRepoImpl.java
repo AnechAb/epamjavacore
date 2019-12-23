@@ -6,14 +6,16 @@ import static Task4_TransportationCompany.storage.Storage.*;
 
 import Task4_TransportationCompany.cargo.domain.Cargo;
 import Task4_TransportationCompany.cargo.repo.CargoRepo;
+import Task4_TransportationCompany.cargo.search.CargoSearchCondition;
 import Task4_TransportationCompany.common.solutions.utils.ArrayUtils;
+import Task4_TransportationCompany.common.solutions.utils.CollectionUtils;
 import Task4_TransportationCompany.storage.IdGenerator;
 
 import java.util.List;
 import java.util.Objects;
 
 
-public class CargoArrayRepoImpl implements CargoRepo {
+public class CargoArrayRepoImpl extends CommonCargoRepo {
     private static int cargoIndex = 0;
     private static final Cargo[] EMPTY_CARGO_ARRAY = new Cargo[0];
 
@@ -74,7 +76,7 @@ public class CargoArrayRepoImpl implements CargoRepo {
      * [A,B,C, null, null]
      * [A,B,C, null, null, null, D]
      * [A,B,C]
-     *
+     * <p>
      * new String[3]
      */
     private Cargo[] excludeNullableElementsFromArray(Cargo[] cargos) {
@@ -112,4 +114,23 @@ public class CargoArrayRepoImpl implements CargoRepo {
             return true;
         }
     }
+
+    @Override
+    public void update(Cargo cargo) {
+
+    }
+
+    @Override
+    public List<Cargo> search(CargoSearchCondition cargoSearchCondition) {
+        List<Cargo> cargos = getAll();
+
+        if (CollectionUtils.isNotEmpty(cargos)) {
+            if (cargoSearchCondition.needSorting()) {
+                cargos.sort(createCargoComparator(cargoSearchCondition));
+            }
+        }
+
+        return cargos;
+    }
+
 }

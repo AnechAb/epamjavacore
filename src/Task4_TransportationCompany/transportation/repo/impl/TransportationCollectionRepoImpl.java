@@ -49,4 +49,9 @@ public class TransportationCollectionRepoImpl implements TransportationRepo {
         }
         return deleted;
     }
+
+    @Override
+    public void update(Transportation transportation) {
+
+    }
 }

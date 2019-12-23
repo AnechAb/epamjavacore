@@ -13,4 +13,6 @@ public interface TransportationService extends CommonService {
     Transportation getById(Long id);
 
     List<Transportation> getAll();
+
+    void update(Transportation transportation);
 }

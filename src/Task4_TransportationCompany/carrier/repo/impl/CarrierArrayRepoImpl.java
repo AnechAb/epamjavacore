@@ -104,4 +104,9 @@ public class CarrierArrayRepoImpl implements CarrierRepo {
             return true;
         }
     }
+
+    @Override
+    public void update(Carrier carrier) {
+
+    }
 }

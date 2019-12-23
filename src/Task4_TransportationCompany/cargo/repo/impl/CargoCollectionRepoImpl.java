@@ -2,16 +2,15 @@ package Task4_TransportationCompany.cargo.repo.impl;
 
 import Task4_TransportationCompany.cargo.domain.Cargo;
 import Task4_TransportationCompany.cargo.repo.CargoRepo;
+import Task4_TransportationCompany.cargo.search.CargoSearchCondition;
+import Task4_TransportationCompany.common.solutions.utils.CollectionUtils;
 import Task4_TransportationCompany.storage.IdGenerator;
 
 import static Task4_TransportationCompany.storage.Storage.cargoCollection;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-public class CargoCollectionRepoImpl implements CargoRepo {
+public class CargoCollectionRepoImpl extends CommonCargoRepo {
     private static int cargoIndex = 0;
 
     @Override
@@ -64,5 +63,25 @@ public class CargoCollectionRepoImpl implements CargoRepo {
 
         return removed;
     }
+
+    @Override
+    public void update(Cargo cargo) {
+
+    }
+
+    @Override
+    public List<Cargo> search(CargoSearchCondition searchCondition) {
+        List<Cargo> cargos = getAll();
+
+        if (CollectionUtils.isNotEmpty(cargos)) {
+            if (searchCondition.needSorting()) {
+                Comparator<Cargo> cargoComparator = createCargoComparator(searchCondition);
+                cargos.sort(searchCondition.isAscOrdering() ? cargoComparator : cargoComparator.reversed());
+            }
+        }
+
+        return cargos;
+    }
+
 }
 

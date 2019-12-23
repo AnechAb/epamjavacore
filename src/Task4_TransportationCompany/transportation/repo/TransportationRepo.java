@@ -11,4 +11,6 @@ public interface TransportationRepo extends CommonRepo {
     Transportation getById(long id);
 
     List<Transportation> getAll();
+
+    void update(Transportation transportation);
 }

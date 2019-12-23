@@ -15,4 +15,6 @@ public interface CarrierService extends CommonService {
 
     List<Carrier> getAll();
 
+    void update(Carrier carrier);
+
 }

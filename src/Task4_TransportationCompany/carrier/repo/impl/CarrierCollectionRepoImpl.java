@@ -63,4 +63,9 @@ public class CarrierCollectionRepoImpl implements CarrierRepo {
     public List<Carrier> getAll() {
         return carrierCollection;
     }
+
+    @Override
+    public void update(Carrier carrier) {
+
+    }
 }

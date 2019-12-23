@@ -44,4 +44,9 @@ public class TransportationArrayRepoImpl implements TransportationRepo {
     public boolean deleteById(long id) {
         return false;
     }
+
+    @Override
+    public void update(Transportation transportation) {
+
+    }
 }

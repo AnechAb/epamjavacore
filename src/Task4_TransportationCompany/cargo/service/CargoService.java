@@ -1,6 +1,7 @@
 package Task4_TransportationCompany.cargo.service;
 
 import Task4_TransportationCompany.cargo.domain.Cargo;
+import Task4_TransportationCompany.cargo.search.CargoSearchCondition;
 import Task4_TransportationCompany.common.business.service.CommonService;
 
 import java.util.Collections;
@@ -14,6 +15,9 @@ public interface CargoService extends CommonService {
 
     List<Cargo> getAll();
 
-    List<Cargo> getByName(String name);
+    List<Cargo> findByName(String name);
 
+    void update(Cargo cargo);
+
+    List<Cargo> search(CargoSearchCondition cargoSearchCondition);
 }
