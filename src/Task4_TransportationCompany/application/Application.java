@@ -2,6 +2,7 @@ package Task4_TransportationCompany.application;
 
 import Task4_TransportationCompany.application.serviceholder.ServiceHolder;
 import Task4_TransportationCompany.application.serviceholder.StorageType;
+import Task4_TransportationCompany.cargo.domain.Cargo;
 import Task4_TransportationCompany.cargo.domain.CargoField;
 import Task4_TransportationCompany.cargo.search.CargoSearchCondition;
 import Task4_TransportationCompany.cargo.service.CargoService;
