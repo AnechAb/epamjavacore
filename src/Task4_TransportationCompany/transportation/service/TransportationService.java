@@ -6,13 +6,5 @@ import Task4_TransportationCompany.transportation.domain.Transportation;
 
 import java.util.List;
 
-public interface TransportationService extends CommonService {
-
-    void add(Transportation transportation);
-
-    Transportation getById(Long id);
-
-    List<Transportation> getAll();
-
-    void update(Transportation transportation);
+public interface TransportationService<Transportation extends Task4_TransportationCompany.transportation.domain.Transportation> extends CommonService<Transportation> {
 }

@@ -37,7 +37,7 @@ public class TransportationServiceImpl implements TransportationService {
 
     @Override
     public Transportation getById(Long id) {
-        return transportationRepo.getById(id);
+        return (Transportation) transportationRepo.getById(id);
     }
 
     @Override

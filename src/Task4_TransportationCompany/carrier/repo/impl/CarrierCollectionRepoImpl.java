@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public class CarrierCollectionRepoImpl implements CarrierRepo {
+public class CarrierCollectionRepoImpl implements CarrierRepo<Carrier> {
 
     @Override
     public void add(Carrier carrier) {

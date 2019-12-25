@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CarrierServiceImpl implements CarrierService {
+public class CarrierServiceImpl implements CarrierService<Carrier> {
 
     private CarrierRepo carrierRepo;
 
@@ -24,7 +24,7 @@ public class CarrierServiceImpl implements CarrierService {
     @Override
     public Carrier getById(Long id) {
         if (id != null) {
-            return carrierRepo.getById(id);
+            return (Carrier) carrierRepo.getById(id);
         }
         return null;
     }

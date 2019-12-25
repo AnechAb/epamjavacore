@@ -27,7 +27,7 @@ public class CargoServiceImpl implements CargoService {
     @Override
     public Cargo getById(Long id) {
         if (id != null) {
-            return cargoRepo.getById(id);
+            return (Cargo) cargoRepo.getById(id);
         }
         return null;
     }

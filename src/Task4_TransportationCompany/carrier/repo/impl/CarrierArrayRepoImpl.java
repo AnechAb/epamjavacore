@@ -11,10 +11,9 @@ import java.util.Objects;
 import static Task4_TransportationCompany.common.business.repo.CommonRepoHelper.findEntityIndexInArrayStorageById;
 import static Task4_TransportationCompany.storage.Storage.carriers;
 
-public class CarrierArrayRepoImpl implements CarrierRepo {
+public class CarrierArrayRepoImpl implements CarrierRepo<Carrier> {
 
     private static final Carrier[] EMPTY_CARRIER_ARRAY = new Carrier[0];
-    private static int carrierIndex = 0;
 
     @Override
     public void add(Carrier carrier) {

@@ -26,7 +26,7 @@ public class TransportationArrayRepoImpl implements TransportationRepo {
 
     @Override
     public Transportation getById(long id) {
-        for (Transportation transportation : Storage.transportations) {
+        for (Transportation transportation : transportationArray) {
             if (transportation != null && Long.valueOf(id).equals(transportation.getId())) {
                 return transportation;
             }

@@ -81,8 +81,8 @@ public class InMemoryStorageInitor implements StorageInitor {
 
     private Transportation createTransportation(long cargoId, long carrierId) {
         Transportation transportation = new Transportation();
-        transportation.setCargo(cargoService.getById(cargoId));
-        transportation.setCarrier(carrierService.getById(carrierId));
+        transportation.setCargo((Cargo) cargoService.getById(cargoId));
+        transportation.setCarrier((Carrier) carrierService.getById(carrierId));
         transportation.setDescription("Transportation");
 
         return transportation;
