@@ -11,7 +11,7 @@ import java.util.List;
 import static Task4_TransportationCompany.storage.Storage.transportationCollection;
 import static Task4_TransportationCompany.storage.Storage.transportations;
 
-public class TransportationCollectionRepoImpl implements TransportationRepo<Transportation> {
+public class TransportationCollectionRepoImpl implements TransportationRepo {
 
     @Override
     public void add(Transportation transportation) {

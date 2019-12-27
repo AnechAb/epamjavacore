@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CarrierServiceImpl implements CarrierService<Carrier> {
+public class CarrierServiceImpl implements CarrierService {
 
     private CarrierRepo carrierRepo;
 
@@ -17,23 +17,33 @@ public class CarrierServiceImpl implements CarrierService<Carrier> {
     }
 
     @Override
-    public void add(Carrier carrier) {
-        carrierRepo.add(carrier);
+    public void save(Carrier carrier) {
+        carrierRepo.save(carrier);
     }
 
     @Override
-    public Carrier getById(Long id) {
+    public Carrier findById(Long id) {
         if (id != null) {
-            return (Carrier) carrierRepo.getById(id);
+            return carrierRepo.findById(id);
         }
+
         return null;
     }
 
     @Override
-    public List<Carrier> getByName(String name) {
-        Carrier[] found = carrierRepo.getByName(name);
-        return (found == null || found.length == 0) ? Collections.emptyList() : Arrays.asList(found);
+    public Carrier getByIdFetchingTransportations(Long id) {
+        if (id != null) {
+            return carrierRepo.getByIdFetchingTransportations(id);
+        }
 
+        return null;
+    }
+
+    @Override
+    public List<Carrier> findByName(String name) {
+        Carrier[] found = carrierRepo.findByName(name);
+
+        return (found == null || found.length == 0) ? Collections.emptyList() : Arrays.asList(found);
     }
 
     @Override
@@ -42,8 +52,25 @@ public class CarrierServiceImpl implements CarrierService<Carrier> {
     }
 
     @Override
+    public int countAll() {
+        return this.carrierRepo.countAll();
+    }
+
+    @Override
     public boolean deleteById(Long id) {
-        return carrierRepo.deleteById(id);
+        Carrier carrier = this.getByIdFetchingTransportations(id);
+
+        if (carrier != null) {
+            List<Transportation> transportations = carrier.getTransportations();
+            boolean hasTransportations = transportations != null && transportations.size() > 0;
+            if (hasTransportations) {
+                throw new CarrierDeleteConstraintViolationException(id);
+            }
+
+            return carrierRepo.deleteById(id);
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -55,7 +82,11 @@ public class CarrierServiceImpl implements CarrierService<Carrier> {
     }
 
     @Override
-    public void update(Carrier carrier) {
+    public boolean update(Carrier carrier) {
+        if (carrier != null) {
+            carrierRepo.update(carrier);
+        }
 
+        return false;
     }
 }

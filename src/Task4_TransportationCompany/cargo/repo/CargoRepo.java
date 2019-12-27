@@ -6,7 +6,7 @@ import Task4_TransportationCompany.common.business.repo.CommonRepo;
 
 import java.util.List;
 
-public interface CargoRepo<Cargo extends Task4_TransportationCompany.cargo.domain.Cargo> extends CommonRepo<Cargo> {
+public interface CargoRepo extends CommonRepo<Cargo, Long> {
 
     Cargo[] getByName(String name);
 

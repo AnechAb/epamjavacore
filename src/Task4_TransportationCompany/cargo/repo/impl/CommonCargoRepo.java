@@ -13,7 +13,7 @@ import java.util.List;
 import static Task4_TransportationCompany.cargo.domain.CargoField.NAME;
 import static Task4_TransportationCompany.cargo.domain.CargoField.WEIGHT;
 
-public abstract class CommonCargoRepo implements CargoRepo<Cargo> {
+public abstract class CommonCargoRepo implements CargoRepo {
 
     private static final List<CargoField> FIELDS_ORDER_TO_SORT_CARGOS = Arrays.asList(NAME, WEIGHT);
 

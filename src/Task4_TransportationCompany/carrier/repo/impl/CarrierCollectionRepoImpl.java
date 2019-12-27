@@ -11,18 +11,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public class CarrierCollectionRepoImpl implements CarrierRepo<Carrier> {
+public class CarrierCollectionRepoImpl implements CarrierRepo {
 
     @Override
-    public void add(Carrier carrier) {
+    public void save(Carrier carrier) {
         carrier.setId(IdGenerator.generateId());
         carrierCollection.add(carrier);
     }
 
     @Override
-    public Carrier getById(long id) {
+    public Carrier findById(Long id) {
         for (Carrier carrier : carrierCollection) {
-            if (Long.valueOf(id).equals(carrier.getId())) {
+            if (carrier.getId().equals(id)) {
                 return carrier;
             }
         }
@@ -31,7 +31,12 @@ public class CarrierCollectionRepoImpl implements CarrierRepo<Carrier> {
     }
 
     @Override
-    public Carrier[] getByName(String name) {
+    public Carrier getByIdFetchingTransportations(long id) {
+        return findById(id);
+    }
+
+    @Override
+    public Carrier[] findByName(String name) {
         List<Carrier> result = new ArrayList<>();
 
         for (Carrier carrier : carrierCollection) {
@@ -44,12 +49,12 @@ public class CarrierCollectionRepoImpl implements CarrierRepo<Carrier> {
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteById(Long id) {
         Iterator<Carrier> iter = carrierCollection.iterator();
 
         boolean removed = false;
         while (iter.hasNext()) {
-            if (Long.valueOf(id).equals(iter.next().getId())) {
+            if (iter.next().getId().equals(id)) {
                 iter.remove();
                 removed = true;
                 break;
@@ -65,7 +70,13 @@ public class CarrierCollectionRepoImpl implements CarrierRepo<Carrier> {
     }
 
     @Override
-    public void update(Carrier carrier) {
-
+    public int countAll() {
+        return carrierCollection.size();
     }
+
+    @Override
+    public boolean update(Carrier carrier) {
+        return true;
+    }
+
 }

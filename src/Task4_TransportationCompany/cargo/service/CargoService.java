@@ -6,7 +6,7 @@ import Task4_TransportationCompany.common.business.service.CommonService;
 
 import java.util.List;
 
-public interface CargoService<Cargo extends Task4_TransportationCompany.cargo.domain.Cargo> extends CommonService<Cargo> {
+public interface CargoService extends CommonService<Cargo, Long> {
 
     List<Cargo> getAll();
 

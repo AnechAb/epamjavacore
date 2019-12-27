@@ -1,20 +1,18 @@
 package Task4_TransportationCompany.common.business.repo;
 
-import Task4_TransportationCompany.carrier.domain.Carrier;
-import Task4_TransportationCompany.common.business.domain.BaseEntity;
-
 import java.util.List;
 
-public interface CommonRepo<T extends BaseEntity> {
+public interface CommonRepo<TYPE, ID> {
 
-    void add(T t);
+    TYPE findById(ID id);
 
-    T getById(long id);
+    void save(TYPE entity);
 
-    boolean deleteById(long id);
+    boolean update(TYPE entity);
 
-    List<T> getAll();
+    boolean deleteById(ID id);
 
-    void update(T t);
+    List<TYPE> getAll();
 
+    int countAll();
 }

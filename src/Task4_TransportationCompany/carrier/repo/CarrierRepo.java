@@ -1,10 +1,9 @@
 package Task4_TransportationCompany.carrier.repo;
 
+import Task4_TransportationCompany.carrier.domain.Carrier;
 import Task4_TransportationCompany.common.business.repo.CommonRepo;
 
-import java.util.List;
-
-public interface CarrierRepo<Carrier extends Task4_TransportationCompany.carrier.domain.Carrier> extends CommonRepo<Carrier> {
+public interface CarrierRepo extends CommonRepo<Carrier, Long> {
 
     Carrier getByIdFetchingTransportations(long id);
 

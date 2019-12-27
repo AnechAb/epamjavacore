@@ -11,8 +11,7 @@ import Task4_TransportationCompany.common.solutions.utils.ArrayUtils;
 import Task4_TransportationCompany.common.solutions.utils.CollectionUtils;
 import Task4_TransportationCompany.storage.IdGenerator;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 public class CargoArrayRepoImpl extends CommonCargoRepo {

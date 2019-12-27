@@ -6,5 +6,5 @@ import Task4_TransportationCompany.transportation.domain.Transportation;
 
 import java.util.List;
 
-public interface TransportationService<Transportation extends Task4_TransportationCompany.transportation.domain.Transportation> extends CommonService<Transportation> {
+public interface TransportationService extends CommonService<Transportation, Long> {
 }
