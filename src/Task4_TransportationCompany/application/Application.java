@@ -7,9 +7,11 @@ import Task4_TransportationCompany.cargo.domain.CargoField;
 import Task4_TransportationCompany.cargo.search.CargoSearchCondition;
 import Task4_TransportationCompany.cargo.service.CargoService;
 import Task4_TransportationCompany.carrier.service.CarrierService;
+import Task4_TransportationCompany.common.business.exception.checked.InitStorageException;
 import Task4_TransportationCompany.common.solutions.search.OrderType;
 import Task4_TransportationCompany.common.solutions.utils.CollectionUtils;
 import Task4_TransportationCompany.storage.initor.InMemoryStorageInitor;
+import Task4_TransportationCompany.storage.initor.InitStorageType;
 import Task4_TransportationCompany.storage.initor.StorageInitor;
 import Task4_TransportationCompany.transportation.service.TransportationService;
 
@@ -22,6 +24,7 @@ import static Task4_TransportationCompany.cargo.domain.CargoField.NAME;
 import static Task4_TransportationCompany.cargo.domain.CargoField.WEIGHT;
 import static Task4_TransportationCompany.common.solutions.search.OrderType.ASC;
 import static Task4_TransportationCompany.common.solutions.search.OrderType.DESC;
+import static Task4_TransportationCompany.storage.initor.StorageInitorFactory.getStorageInitor;
 import static java.util.Collections.singletonList;
 
 public class Application {
@@ -32,13 +35,14 @@ public class Application {
     private static TransportationService transportationService;
 
     public static void main(String[] args) {
-        ServiceHolder.initServiceHolder(StorageType.COLLECTION);
-        cargoService = ServiceHolder.getInstance().getCargoService();
-        carrierService = ServiceHolder.getInstance().getCarrierService();
-        transportationService = ServiceHolder.getInstance().getTransportationService();
+        try {
+            ServiceHolder.initServiceHolder(StorageType.COLLECTION);
+            cargoService = ServiceHolder.getInstance().getCargoService();
+            carrierService = ServiceHolder.getInstance().getCarrierService();
+            transportationService = ServiceHolder.getInstance().getTransportationService();
 
-        StorageInitor storageInitor = new InMemoryStorageInitor();
-        storageInitor.initStorage();
+            StorageInitor storageInitor = getStorageInitor(InitStorageType.TEXT_FILE);
+            storageInitor.initStorage();
 
         printStorageData();
         doSearchOperations();
