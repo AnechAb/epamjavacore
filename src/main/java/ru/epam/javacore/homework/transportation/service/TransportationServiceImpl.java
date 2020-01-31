@@ -4,6 +4,7 @@ import main.java.ru.epam.javacore.homework.transportation.domain.Transportation;
 import main.java.ru.epam.javacore.homework.transportation.repo.TransportationRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TransportationServiceImpl implements TransportationService {
 
@@ -33,7 +34,7 @@ public class TransportationServiceImpl implements TransportationService {
   }
 
   @Override
-  public Transportation findById(Long id) {
+  public Optional<Transportation> findById(Long id) {
     return transportationRepo.findById(id);
   }
 

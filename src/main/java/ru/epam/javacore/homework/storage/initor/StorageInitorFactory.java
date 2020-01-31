@@ -26,6 +26,7 @@ public final class StorageInitorFactory {
             case XML_SAX_FILE: {
                 return new XmlSaxFileDataInitor();
             }
+
             case MULTI_THREAD: {
                 return new MultiThreadStorageInitor();
             }

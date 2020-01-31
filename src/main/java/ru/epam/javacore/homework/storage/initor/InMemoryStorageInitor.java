@@ -16,6 +16,7 @@ import main.java.ru.epam.javacore.homework.carrier.service.CarrierService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class InMemoryStorageInitor implements StorageInitor {
@@ -91,8 +92,14 @@ public class InMemoryStorageInitor implements StorageInitor {
 
   private Transportation createTransportation(long cargoId, long carrierId) {
     Transportation transportation = new Transportation();
-    transportation.setCargo(cargoService.findById(cargoId));
-    transportation.setCarrier(carrierService.findById(carrierId));
+
+    Optional<Cargo> cargoOptional = cargoService.findById(cargoId);
+    Optional<Carrier> carrierOptional = carrierService.findById(carrierId);
+    if (!cargoOptional.isPresent() || !carrierOptional.isPresent()) {
+      throw new RuntimeException("Insufficient data to init transportation");
+    }
+    transportation.setCargo(cargoOptional.get());
+    transportation.setCarrier(carrierOptional.get());
     transportation.setDescription("Transportation");
 
     return transportation;
@@ -119,7 +126,7 @@ public class InMemoryStorageInitor implements StorageInitor {
 
     for (Transportation transportation : transportations) {
       if (transportation.getCargo() != null && transportation.getCargo().getId()
-          .equals(cargo.getId())) {
+              .equals(cargo.getId())) {
         cargoTransportations.add(transportation);
       }
     }

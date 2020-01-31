@@ -1,10 +1,11 @@
 package main.java.ru.epam.javacore.homework.common.business.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CommonRepo<TYPE, ID> {
 
-  TYPE findById(ID id);
+  Optional<TYPE> findById(ID id);
 
   void save(TYPE entity);
 

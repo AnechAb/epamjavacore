@@ -7,16 +7,14 @@ import main.java.ru.epam.javacore.homework.common.solutions.utils.CollectionUtil
 import main.java.ru.epam.javacore.homework.storage.IdGenerator;
 import main.java.ru.epam.javacore.homework.storage.Storage;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import static main.java.ru.epam.javacore.homework.storage.Storage.cargoCollection;
 
 public class CargoCollectionRepoImpl extends CommonCargoRepo {
 
   @Override
-  public Cargo getByIdFetchingTransportations(long id) {
+  public Optional<Cargo> getByIdFetchingTransportations(long id) {
     return findById(id);
   }
 
@@ -24,7 +22,7 @@ public class CargoCollectionRepoImpl extends CommonCargoRepo {
   public Cargo[] findByName(String name) {
     List<Cargo> result = new ArrayList<>();
 
-    for (Cargo carrier : Storage.cargoCollection) {
+    for (Cargo carrier : cargoCollection) {
       if (Objects.equals(carrier.getName(), name)) {
         result.add(carrier);
       }
@@ -48,20 +46,20 @@ public class CargoCollectionRepoImpl extends CommonCargoRepo {
   }
 
   @Override
-  public Cargo findById(Long id) {
-    for (Cargo carrier : Storage.cargoCollection) {
+  public Optional<Cargo> findById(Long id) {
+    for (Cargo carrier : cargoCollection) {
       if (id != null && id.equals(carrier.getId())) {
-        return carrier;
+        return Optional.of(carrier);
       }
     }
 
-    return null;
+    return Optional.empty();
   }
 
   @Override
   public void save(Cargo cargo) {
     cargo.setId(IdGenerator.generateId());
-    Storage.cargoCollection.add(cargo);
+    cargoCollection.add(cargo);
   }
 
   @Override
@@ -71,7 +69,7 @@ public class CargoCollectionRepoImpl extends CommonCargoRepo {
 
   @Override
   public boolean deleteById(Long id) {
-    Iterator<Cargo> iter = Storage.cargoCollection.iterator();
+    Iterator<Cargo> iter = cargoCollection.iterator();
 
     boolean removed = false;
     while (iter.hasNext()) {
@@ -87,12 +85,12 @@ public class CargoCollectionRepoImpl extends CommonCargoRepo {
 
   @Override
   public List<Cargo> getAll() {
-    return Storage.cargoCollection;
+    return cargoCollection;
   }
 
   @Override
   public int countAll() {
-    return Storage.cargoCollection.size();
+    return cargoCollection.size();
   }
 
 

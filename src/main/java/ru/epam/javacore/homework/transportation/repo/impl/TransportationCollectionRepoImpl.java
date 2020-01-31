@@ -9,6 +9,7 @@ import main.java.ru.epam.javacore.homework.transportation.repo.TransportationRep
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class TransportationCollectionRepoImpl implements TransportationRepo {
 
@@ -19,14 +20,14 @@ public class TransportationCollectionRepoImpl implements TransportationRepo {
   }
 
   @Override
-  public Transportation findById(Long id) {
+  public Optional<Transportation> findById(Long id) {
     for (Transportation transportation : transportationCollection) {
       if (transportation.getId().equals(id)) {
-        return transportation;
+        return Optional.of(transportation);
       }
     }
 
-    return null;
+    return Optional.empty();
   }
 
   @Override

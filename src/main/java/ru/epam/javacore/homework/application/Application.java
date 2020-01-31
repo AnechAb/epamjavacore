@@ -24,10 +24,7 @@ import main.java.ru.epam.javacore.homework.reporting.ReportService;
 import main.java.ru.epam.javacore.homework.storage.initor.InitStorageType;
 import main.java.ru.epam.javacore.homework.storage.initor.StorageInitor;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 public class Application {
 
@@ -129,7 +126,7 @@ public class Application {
     cargoSearchCondition.setOrderType(orderType);
     cargoSearchCondition.setSortFields(new LinkedHashSet<>(sortFields));
     System.out.println(
-        "---------Sorting '" + getOrderingConditionsAsString(cargoSearchCondition) + "'------");
+            "---------Sorting '" + getOrderingConditionsAsString(cargoSearchCondition) + "'------");
     cargoService.search(cargoSearchCondition);
     cargoService.printAll();
     System.out.println();
@@ -138,26 +135,31 @@ public class Application {
   private static void demoExceptions() {
     System.out.println("------Demo  exceptions------------");
     Long firstCargo = cargoService.getAll().get(0).getId();
-    Cargo cargo = cargoService.getByIdFetchingTransportations(firstCargo);
-    System.out.println("Try to delete cargo");
-    System.out.println("Cargo details:");
-    System.out.println("id: " + cargo.getId());
-    System.out.println("name: " + cargo.getName());
-    System.out.println("total transportations: " + (cargo.getTransportations() != null ? cargo
-        .getTransportations().size() : 0));
-    System.out.println();
-    try {
-      cargoService.deleteById(cargo.getId());
-    } catch (Exception e) {
-      System.out.println("OOPS, something went wrong!");
-      System.out.println(e.getMessage());
+    Optional<Cargo> cargoOptional = cargoService.getByIdFetchingTransportations(firstCargo);
+
+    if (cargoOptional.isPresent()) {
+      Cargo cargo = cargoOptional.get();
+
+      System.out.println("Try to delete cargo");
+      System.out.println("Cargo details:");
+      System.out.println("id: " + cargo.getId());
+      System.out.println("name: " + cargo.getName());
+      System.out.println("total transportations: " + (cargo.getTransportations() != null ? cargo
+              .getTransportations().size() : 0));
+      System.out.println();
+      try {
+        cargoService.deleteById(cargo.getId());
+      } catch (Exception e) {
+        System.out.println("OOPS, something went wrong!");
+        System.out.println(e.getMessage());
+      }
     }
   }
 
   private static void demoReportService() throws ReportException {
     System.out.println("----------Demo report service ---------------");
     ReportService reportService = new ReportDefaultService(
-        cargoService, carrierService, transportationService
+            cargoService, carrierService, transportationService
     );
     reportService.exportData();
   }

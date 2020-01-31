@@ -9,6 +9,7 @@ import main.java.ru.epam.javacore.homework.cargo.search.CargoSearchCondition;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class CargoServiceImpl implements CargoService {
 
@@ -24,19 +25,19 @@ public class CargoServiceImpl implements CargoService {
   }
 
   @Override
-  public Cargo findById(Long id) {
+  public Optional<Cargo> findById(Long id) {
     if (id != null) {
       return cargoRepo.findById(id);
     }
-    return null;
+    return Optional.empty();
   }
 
   @Override
-  public Cargo getByIdFetchingTransportations(Long id) {
+  public Optional<Cargo> getByIdFetchingTransportations(Long id) {
     if (id != null) {
       return cargoRepo.getByIdFetchingTransportations(id);
     }
-    return null;
+    return Optional.empty();
   }
 
   @Override
@@ -57,10 +58,10 @@ public class CargoServiceImpl implements CargoService {
 
   @Override
   public boolean deleteById(Long id) {
-    Cargo cargo = this.getByIdFetchingTransportations(id);
+    Optional<Cargo> cargoOptional = this.getByIdFetchingTransportations(id);
 
-    if (cargo != null) {
-      List<Transportation> transportations = cargo.getTransportations();
+    if (cargoOptional.isPresent()) {
+      List<Transportation> transportations = cargoOptional.get().getTransportations();
       boolean hasTransportations = transportations != null && transportations.size() > 0;
       if (hasTransportations) {
         throw new CargoDeleteConstraintViolationException(id);

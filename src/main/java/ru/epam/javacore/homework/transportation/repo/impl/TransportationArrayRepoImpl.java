@@ -13,6 +13,7 @@ import main.java.ru.epam.javacore.homework.transportation.repo.TransportationRep
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class TransportationArrayRepoImpl implements TransportationRepo {
 
@@ -33,14 +34,14 @@ public class TransportationArrayRepoImpl implements TransportationRepo {
   }
 
   @Override
-  public Transportation findById(Long id) {
+  public Optional<Transportation> findById(Long id) {
     for (Transportation transportation : transportationArray) {
       if (transportation != null && transportation.getId().equals(id)) {
-        return transportation;
+        return Optional.of(transportation);
       }
     }
 
-    return null;
+    return Optional.empty();
   }
 
   @Override
@@ -87,7 +88,7 @@ public class TransportationArrayRepoImpl implements TransportationRepo {
 
   @Override
   public boolean deleteById(Long id) {
-    Integer indexToDelete = findEntityIndexInArrayStorageById(transportationArray, id);
+    Integer indexToDelete = findEntityIndexInArrayStorageById(transportationArray, id).orElse(null);
 
     if (indexToDelete == null) {
       return false;

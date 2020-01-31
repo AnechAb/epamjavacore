@@ -8,6 +8,7 @@ import main.java.ru.epam.javacore.homework.carrier.repo.CarrierRepo;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class CarrierServiceImpl implements CarrierService {
 
@@ -24,21 +25,21 @@ public class CarrierServiceImpl implements CarrierService {
   }
 
   @Override
-  public Carrier findById(Long id) {
+  public Optional<Carrier> findById(Long id) {
     if (id != null) {
       return carrierRepo.findById(id);
     }
 
-    return null;
+    return Optional.empty();
   }
 
   @Override
-  public Carrier getByIdFetchingTransportations(Long id) {
+  public Optional<Carrier> getByIdFetchingTransportations(Long id) {
     if (id != null) {
       return carrierRepo.getByIdFetchingTransportations(id);
     }
 
-    return null;
+    return Optional.empty();
   }
 
   @Override
@@ -60,10 +61,10 @@ public class CarrierServiceImpl implements CarrierService {
 
   @Override
   public boolean deleteById(Long id) {
-    Carrier carrier = this.getByIdFetchingTransportations(id);
+    Optional<Carrier> carrier = this.getByIdFetchingTransportations(id);
 
-    if (carrier != null) {
-      List<Transportation> transportations = carrier.getTransportations();
+    if (carrier.isPresent()) {
+      List<Transportation> transportations = carrier.get().getTransportations();
       boolean hasTransportations = transportations != null && transportations.size() > 0;
       if (hasTransportations) {
         throw new CarrierDeleteConstraintViolationException(id);

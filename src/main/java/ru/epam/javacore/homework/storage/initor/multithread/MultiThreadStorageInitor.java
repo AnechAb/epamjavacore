@@ -53,9 +53,7 @@ public class MultiThreadStorageInitor extends BaseFileInitor {
     }
 
     private void startParseWithThreads(List<Thread> threads) {
-        for (Thread thread : threads) {
-            thread.start();
-        }
+        threads.forEach(Thread::start);
     }
 
     private void waitAllParserHaveFinished(List<Thread> threads) throws InterruptedException {

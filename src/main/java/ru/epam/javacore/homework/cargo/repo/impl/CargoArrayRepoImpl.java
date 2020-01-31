@@ -9,18 +9,18 @@ import main.java.ru.epam.javacore.homework.common.solutions.utils.CollectionUtil
 import main.java.ru.epam.javacore.homework.storage.IdGenerator;
 import main.java.ru.epam.javacore.homework.storage.Storage;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import static main.java.ru.epam.javacore.homework.common.business.repo.CommonRepoHelper.findEntityIndexInArrayStorageById;
+import static main.java.ru.epam.javacore.homework.storage.Storage.cargoArray;
+import static main.java.ru.epam.javacore.homework.storage.Storage.cargoIndex;
 
 public class CargoArrayRepoImpl extends CommonCargoRepo {
 
   private static final Cargo[] EMPTY_CARGO_ARRAY = new Cargo[0];
 
   @Override
-  public Cargo getByIdFetchingTransportations(long id) {
+  public Optional<Cargo> getByIdFetchingTransportations(long id) {
     return findById(id);
   }
 
@@ -28,7 +28,7 @@ public class CargoArrayRepoImpl extends CommonCargoRepo {
   public Cargo[] findByName(String name) {
     Cargo[] searchResultWithNullableElems = getByNameIncludingNullElements(name);
     if (searchResultWithNullableElems == null
-        || searchResultWithNullableElems.length == 0) {
+            || searchResultWithNullableElems.length == 0) {
       return EMPTY_CARGO_ARRAY;
     } else {
       return excludeNullableElementsFromArray(searchResultWithNullableElems);
@@ -36,10 +36,10 @@ public class CargoArrayRepoImpl extends CommonCargoRepo {
   }
 
   private Cargo[] getByNameIncludingNullElements(String name) {
-    Cargo[] result = new Cargo[Storage.cargoArray.length];
+    Cargo[] result = new Cargo[cargoArray.length];
 
     int curIndex = 0;
-    for (Cargo carrier : Storage.cargoArray) {
+    for (Cargo carrier : cargoArray) {
       if (carrier != null && Objects.equals(carrier.getName(), name)) {
         result[curIndex++] = carrier;
       }
@@ -92,27 +92,27 @@ public class CargoArrayRepoImpl extends CommonCargoRepo {
   }
 
   @Override
-  public Cargo findById(Long id) {
-    for (Cargo cargo : Storage.cargoArray) {
+  public Optional<Cargo> findById(Long id) {
+    for (Cargo cargo : cargoArray) {
       if (cargo != null && id != null && id.equals(cargo.getId())) {
-        return cargo;
+        return Optional.of(cargo);
       }
     }
 
-    return null;
+    return Optional.empty();
   }
 
   @Override
   public void save(Cargo cargo) {
-    if (Storage.cargoIndex == Storage.cargoArray.length) {
-      Cargo[] newCargos = new Cargo[Storage.cargoArray.length * 2];
-      ArrayUtils.copyArray(Storage.cargoArray, newCargos);
-      Storage.cargoArray = newCargos;
+    if (cargoIndex == cargoArray.length) {
+      Cargo[] newCargos = new Cargo[cargoArray.length * 2];
+      ArrayUtils.copyArray(cargoArray, newCargos);
+      cargoArray = newCargos;
     }
 
     cargo.setId(IdGenerator.generateId());
-    Storage.cargoArray[Storage.cargoIndex] = cargo;
-    Storage.cargoIndex++;
+    cargoArray[cargoIndex] = cargo;
+    cargoIndex++;
   }
 
   @Override
@@ -122,20 +122,20 @@ public class CargoArrayRepoImpl extends CommonCargoRepo {
 
   @Override
   public boolean deleteById(Long id) {
-    Integer indexToDelete = CommonRepoHelper.findEntityIndexInArrayStorageById(Storage.cargoArray, id);
+    Integer indexToDelete = findEntityIndexInArrayStorageById(cargoArray, id).orElse(null);
 
     if (indexToDelete == null) {
       return false;
     } else {
-      ArrayUtils.removeElement(Storage.cargoArray, indexToDelete);
+      ArrayUtils.removeElement(cargoArray, indexToDelete);
       return true;
     }
   }
 
   @Override
   public List<Cargo> getAll() {
-    Cargo[] cargos = excludeNullableElementsFromArray(Storage.cargoArray);
-    return cargos.length == 0 ? Collections.emptyList() : Arrays.asList(Storage.cargoArray);
+    Cargo[] cargos = excludeNullableElementsFromArray(cargoArray);
+    return cargos.length == 0 ? Collections.emptyList() : Arrays.asList(cargoArray);
   }
 
   @Override

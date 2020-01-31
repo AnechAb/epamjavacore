@@ -6,32 +6,31 @@ import main.java.ru.epam.javacore.homework.storage.IdGenerator;
 import main.java.ru.epam.javacore.homework.storage.Storage;
 import main.java.ru.epam.javacore.homework.carrier.repo.CarrierRepo;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import static main.java.ru.epam.javacore.homework.storage.Storage.carrierCollection;
 
 public class CarrierCollectionRepoImpl implements CarrierRepo {
 
   @Override
   public void save(Carrier carrier) {
     carrier.setId(IdGenerator.generateId());
-    Storage.carrierCollection.add(carrier);
+    carrierCollection.add(carrier);
   }
 
   @Override
-  public Carrier findById(Long id) {
-    for (Carrier carrier : Storage.carrierCollection) {
+  public Optional<Carrier> findById(Long id) {
+    for (Carrier carrier : carrierCollection) {
       if (carrier.getId().equals(id)) {
-        return carrier;
+        return Optional.of(carrier);
       }
     }
 
-    return null;
+    return Optional.empty();
   }
 
   @Override
-  public Carrier getByIdFetchingTransportations(long id) {
+  public Optional<Carrier> getByIdFetchingTransportations(long id) {
     return findById(id);
   }
 
@@ -39,7 +38,7 @@ public class CarrierCollectionRepoImpl implements CarrierRepo {
   public Carrier[] findByName(String name) {
     List<Carrier> result = new ArrayList<>();
 
-    for (Carrier carrier : Storage.carrierCollection) {
+    for (Carrier carrier : carrierCollection) {
       if (Objects.equals(carrier.getName(), name)) {
         result.add(carrier);
       }
@@ -50,7 +49,7 @@ public class CarrierCollectionRepoImpl implements CarrierRepo {
 
   @Override
   public boolean deleteById(Long id) {
-    Iterator<Carrier> iter = Storage.carrierCollection.iterator();
+    Iterator<Carrier> iter = carrierCollection.iterator();
 
     boolean removed = false;
     while (iter.hasNext()) {
@@ -66,12 +65,12 @@ public class CarrierCollectionRepoImpl implements CarrierRepo {
 
   @Override
   public List<Carrier> getAll() {
-    return Storage.carrierCollection;
+    return carrierCollection;
   }
 
   @Override
   public int countAll() {
-    return Storage.carrierCollection.size();
+    return carrierCollection.size();
   }
 
   @Override
