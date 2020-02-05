@@ -5,7 +5,6 @@ import main.java.ru.epam.javacore.homework.cargo.domain.Cargo;
 import main.java.ru.epam.javacore.homework.cargo.search.CargoSearchCondition;
 import main.java.ru.epam.javacore.homework.common.solutions.utils.CollectionUtils;
 import main.java.ru.epam.javacore.homework.storage.IdGenerator;
-import main.java.ru.epam.javacore.homework.storage.Storage;
 
 import java.util.*;
 

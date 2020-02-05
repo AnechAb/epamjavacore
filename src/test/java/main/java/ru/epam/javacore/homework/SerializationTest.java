@@ -1,4 +1,4 @@
-package java.ru.epam.javacore.homework;
+package main.java.ru.epam.javacore.homework;
 
 
 import static main.java.ru.epam.javacore.homework.common.solutions.comparator.SimpleComparator.LONG_COMPARATOR;
